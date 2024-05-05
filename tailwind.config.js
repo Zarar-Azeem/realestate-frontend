@@ -10,7 +10,7 @@ export default {
       addBase({});
       addComponents({
         ".form-container":{
-          "@apply w-3/5 mx-auto rounded-lg bg-slate-100 p-6 mt-12":{}
+          "@apply md:w-2/5  mx-auto rounded-lg bg-slate-200 md:p-6 p-2 mt-12 shadow-lg":{}
         },
         ".input-field": {
           "@apply py-2 px-4 flex flex-col w-full":{}
@@ -27,6 +27,9 @@ export default {
         ".button": {
           "@apply py-2 px-3 bg-slate-200 rounded-lg  font-semibold hover:bg-slate-100" : {}
         },
+        ".file-input": {
+          "@apply bg-slate-200 block w-full border shadow-sm rounded-sm text-sm file:border-0 file:me-4 file:rounded-lg file:bg-white file:py-1 file:px-2 file:cursor-pointer" :{}
+        }
       });
       addUtilities({});
     }),

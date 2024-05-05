@@ -17,7 +17,7 @@ const Search = () => {
   return (
     <div className='my-auto flex gap-x-4 col-span-1/2 w-full'>
         <div className="w-5/6 ">
-            <form className='md:inline-flex sm:gap-x-2 grid grid-cols-2 gap-4'>
+            <form className='md:inline-flex grid grid-cols-2 gap-4'>
                 <input type="text" className='col-span-2' name='search' placeholder='Seach Location'/>
                 <input type="number" name='minPrice' min={0} max={10000000}  placeholder='Min Price'/>
                 <input type="number" name='maxPrice' min={0} max={10000000} placeholder='Max Price'/>
@@ -29,8 +29,7 @@ const Search = () => {
                     Rent
                   </button>
                 </div>
-                
-                <button className='bg-slate-700 py-4 px-6 rounded-lg hover:bg-slate-600'><i className="text-white fa-solid fa-magnifying-glass"></i></button>
+                <button className='bg-slate-700 py-4 px-6 rounded-lg hover:bg-slate-600 w-fit ml-6 sm:ml-0'><i className="text-white fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
     </div>

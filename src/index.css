@@ -18,6 +18,15 @@ body{
   overflow-x: hidden;
 }
 
+.chat_names{
+  height: calc(100vh - 21rem);
+  overflow-y: scroll;
+}
+
+.chat_container{
+  height: calc(100vh - 21rem);
+}
+
 .map_container{
   padding: 1rem;
   height: calc(100vh - 4.5rem);
@@ -30,5 +39,9 @@ body{
 .container{
   width: 75%;
   margin: auto;
+  @media only screen and (max-width: 1024px) {
+    width: 90%;
+    margin: auto;
+  }
 }
 

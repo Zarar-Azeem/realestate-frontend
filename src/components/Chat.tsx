@@ -9,7 +9,7 @@ const Chat = () => {
                 <div className='rounded-lg p-6 text-start bg-white hover:bg-gray-200 cursor-pointer'>{user}</div>
             )}
         </div>
-        <div className='basis-[60%] bg-slate-200 h-[24.5rem]  p-3 overflow-hidden flex flex-col-reverse rounded-lg '>
+        <div className='chat_container basis-[60%] bg-slate-200 h-[24.5rem]  p-3 overflow-hidden flex flex-col-reverse rounded-lg '>
             <div className='flex gap-2'>
                 <input className="w-full" type="text" />
                 <button className='button bg-white'>Send</button>

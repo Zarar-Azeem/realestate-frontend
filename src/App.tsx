@@ -9,6 +9,7 @@ import Properties from './pages/Properties'
 import { PropertryPage } from './pages/PropertryPage'
 import ProfilePage from './pages/ProfilePage'
 import { AddProperty } from './pages/AddProperty'
+import UpdateProfile from './pages/UpdateProfile'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/propertypage" element={ <PropertryPage/> } />
           <Route path="/profile" element={ <ProfilePage/> } />
           <Route path="/addproperty" element={ <AddProperty/> } />
+          <Route path="/updateproperty" element={ <UpdateProfile/> } />
           <Route path="/register" element={ <Register/> } />
           <Route path="/login" element={ <Login/> } />
         </Routes>

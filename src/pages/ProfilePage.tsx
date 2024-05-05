@@ -20,7 +20,7 @@ const ProfilePage = () => {
                         <div className='pl-4'>Name</div>
                     </div>
                     <div>
-                        <button className='button w-[10rem]'>Update Profile</button>
+                        <Link to="/updateproperty"><button className='button w-[10rem]'>Update Profile</button></Link>
                     </div>
                 </div>
                 <div className='flex justify-between items-center h-[5rem] gap-2 py-2'>
@@ -42,6 +42,7 @@ const ProfilePage = () => {
                     <div className='mt-4 h-full'>
                     { tab == "mylist" ?
                     <div className='flex flex-col gap-4'>
+                        <LargeCard/> 
                         <LargeCard/> 
                         <LargeCard/> 
                         <LargeCard/> 
