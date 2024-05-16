@@ -2,20 +2,11 @@ import React, { useEffect, useState } from 'react'
 import LargeCard from '../components/LargeCard'
 import Chat from '../components/Chat'
 import { Link } from 'react-router-dom'
-import { api } from '../api/api'
 import { User } from '../types/UserTypes'
 
 const ProfilePage = () => {
     const [user, setUser] = useState<User>({name:'' , email:'', number: null})
     
-    useEffect(() =>{
-        const fetchUser = async ( ) => {
-            const res  = await  api.get('/api/user/getuser',
-                )
-            setUser(res.data)
-        }
-        fetchUser()
-    },[localStorage.getItem('token')])
 
     const [tab, setTab] = useState('mylist')
 
