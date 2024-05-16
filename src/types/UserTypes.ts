@@ -5,3 +5,11 @@ export type AuthResponse = {
         token: string
     }
 }
+
+
+export type User ={
+    name: string 
+    email: string 
+    number: number | null
+
+}

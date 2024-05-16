@@ -1,9 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LargeCard from '../components/LargeCard'
 import Chat from '../components/Chat'
 import { Link } from 'react-router-dom'
+import { api } from '../api/api'
+import { User } from '../types/UserTypes'
 
 const ProfilePage = () => {
+    const [user, setUser] = useState<User>({name:'' , email:'', number: null})
+    
+    useEffect(() =>{
+        const fetchUser = async ( ) => {
+            const res  = await  api.get('/api/user/getuser',
+                )
+            setUser(res.data)
+        }
+        fetchUser()
+    },[localStorage.getItem('token')])
+
     const [tab, setTab] = useState('mylist')
 
     const toggleTabs = ( tab: string) =>{
@@ -17,7 +30,7 @@ const ProfilePage = () => {
                 <div className='flex items-center h-[5rem] justify-between'>
                     <div className='flex items-center'>
                         <div className='rounded-full bg-black w-16 h-16 text-center'>2</div>
-                        <div className='pl-4'>Name</div>
+                        <div className='pl-4'>{user.name}</div>
                     </div>
                     <div>
                         <Link to="/updateproperty"><button className='button w-[10rem]'>Update Profile</button></Link>
@@ -25,8 +38,8 @@ const ProfilePage = () => {
                 </div>
                 <div className='flex justify-between items-center h-[5rem] gap-2 py-2'>
                     <div className='flex flex-col gap-2 py-2'>
-                        <p><span className='font-semibold'>Phone Number:</span> 1234567</p>
-                        <p><span className='font-semibold'>Email: </span>test@gmail.com</p>
+                        <p><span className='font-semibold'>Phone Number:</span> {user.number}</p>
+                        <p><span className='font-semibold'>Email: </span>{user.email}</p>
                     </div>
                     <div>
                         <Link to="/addproperty"><button className='button-cta w-[10rem]'> Add Property</button></Link>

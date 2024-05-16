@@ -2,6 +2,7 @@ import axios  from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthResponse } from '../types/UserTypes'
+import { api } from '../api/api'
 
 
 const Login = () => {
@@ -16,11 +17,14 @@ const Login = () => {
         const email = formData.get("email")
         const password = formData.get("password")
         try {
-            const res : AuthResponse = await axios.post(" http://localhost:3000/api/user/login", {
+            const res : AuthResponse = await api.post("/api/user/login", {
                 email,password
             })
-            navigate("/")
-            console.log("Response", res.data.message)
+            if(res.data.success){
+                localStorage.setItem('token', res.data.token)
+                navigate("/")
+                console.log("Response", res.data.message)
+            }
 
         } catch (error : any) {
             if (error.response && error.response.data) {

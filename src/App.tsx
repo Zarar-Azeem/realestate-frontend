@@ -10,6 +10,7 @@ import { PropertryPage } from './pages/PropertryPage'
 import ProfilePage from './pages/ProfilePage'
 import { AddProperty } from './pages/AddProperty'
 import UpdateProfile from './pages/UpdateProfile'
+import PrivateRoutes from './components/PrivateRoutes'
 
 const App = () => {
   return (
@@ -18,12 +19,13 @@ const App = () => {
     <div className='container'>
       <Routes>
           <Route path="/" element={ <Home/> } />
-          <Route path="/about" element={ <About/> } />
-          <Route path="/properties" element={ <Properties/> } />
-          <Route path="/propertypage" element={ <PropertryPage/> } />
-          <Route path="/profile" element={ <ProfilePage/> } />
-          <Route path="/addproperty" element={ <AddProperty/> } />
-          <Route path="/updateproperty" element={ <UpdateProfile/> } />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/properties" element={ <Properties/> } />
+            <Route path="/propertypage" element={ <PropertryPage/> } />
+            <Route path="/profile" element={ <ProfilePage/> } />
+            <Route path="/addproperty" element={ <AddProperty/> } />
+            <Route path="/updateproperty" element={ <UpdateProfile/> } />
+          </Route>
           <Route path="/register" element={ <Register/> } />
           <Route path="/login" element={ <Login/> } />
         </Routes>
