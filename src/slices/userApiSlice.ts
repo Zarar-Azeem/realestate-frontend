@@ -19,7 +19,7 @@ export const userApiSlice = baseApi.injectEndpoints({
                 }
               }
         }),
-        getUser: build.query<User , string>({
+        getUser: build.query<User , any>({
             query: (id) => ({
                 url: `/api/user/getuser/${id}`,
                 method: 'GET'

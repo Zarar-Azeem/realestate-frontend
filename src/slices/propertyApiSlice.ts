@@ -38,7 +38,8 @@ const propertyApiSlice = baseApi.injectEndpoints({
                 url: '/api/property/create',
                 method: 'POST',
                 body: {...data}
-            })
+            }),
+            invalidatesTags: ['property']
         }),
         deleteProperty: build.mutation({
             query: (id) => ({

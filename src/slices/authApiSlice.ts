@@ -18,7 +18,7 @@ const authApiSlice = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['user']
         }),
-        register: build.mutation({
+        register: build.mutation<AuthResponse , { email: string , name: string, password: string}>({
             query: (data) => ({
                 url: '/api/user/register',
                 method: 'POST',

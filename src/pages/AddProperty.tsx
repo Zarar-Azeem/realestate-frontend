@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Map from '../components/Map'
-import { useCreatePropertyMutation, useGetUserPropertiesQuery } from '../slices/propertyApiSlice'
+import { useCreatePropertyMutation, useGetPropertiesQuery, useGetUserPropertiesQuery } from '../slices/propertyApiSlice'
 import { CreateProperty, Property } from '../types/PropertyTypes'
 import { useNavigate } from 'react-router-dom'
 import { capitalize } from '../utils'
@@ -10,6 +10,7 @@ export const AddProperty = () => {
     const navigate = useNavigate()
     const [ createProperty , { error : err} ] = useCreatePropertyMutation()
     const { refetch } = useGetUserPropertiesQuery({})
+    const { refetch : ref } = useGetPropertiesQuery({})
 
     const handleSubmit = async(e : React.FormEvent<EventTarget>) =>{
         e.preventDefault()
@@ -29,6 +30,7 @@ export const AddProperty = () => {
         try {
             const res : CreateProperty = await createProperty({title, price,body, description}).unwrap()
             if(res.success){
+                ref()
                 refetch()
                 navigate('/profile')
                 console.log(res)

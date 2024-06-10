@@ -1,29 +1,31 @@
-import axios, { AxiosError }  from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthResponse } from '../types/UserTypes'
+import { useRegisterMutation } from '../slices/authApiSlice'
+import { setUser } from '../slices/authSlice'
+import { useDispatch } from 'react-redux'
 
 const Register = () => {
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
+    const [ register , { error: err}] = useRegisterMutation()
     const [error, setError] = useState<string>('')
     
     const handleSubmit = async (e : React.FormEvent<EventTarget>) => {
         e.preventDefault()
         const formData = new FormData(e.target as HTMLFormElement)
 
-        const name = formData.get("name")
-        const email = formData.get("email")
-        const password = formData.get("password")
+        const name = formData.get("name") as string
+        const email = formData.get("email") as string
+        const password = formData.get("password") as string
         try {
-            const res : AuthResponse= await axios.post(" http://localhost:3000/api/user/register", {
-                name,email,password
-            })
-            // if(res.success){
-            //     localStorage.setItem('token', res.data.token)
-            //     navigate("/")
-            //     console.log("Response", res.data.message)
-            // }
+            const res = await register({name, email, password}).unwrap()
+            if(res.success){
+                dispatch(setUser(res.user))
+                navigate('/profile')
+            }
+
+
         } catch (error : any ) {
             if(error.response && error.response.data){
                 setError(error.response.data.message || "Login Failed")

@@ -1,23 +1,34 @@
-import axios  from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthResponse } from '../types/UserTypes'
+import { useLoginMutation } from '../slices/authApiSlice'
+import { setUser } from '../slices/authSlice'
+import { useDispatch } from 'react-redux'
 
 
 const Login = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [error, setError] = useState<string>('')
+    const [ login , {error : err} ] = useLoginMutation()
 
     const handleSubmit = async (e : React.FormEvent<EventTarget>) => {
         e.preventDefault()
         const formData = new FormData(e.target as HTMLFormElement)
 
-        const email = formData.get("email")
-        const password = formData.get("password")
+        const email = formData.get("email") as string 
+        const password = formData.get("password") as string
         try {
-            
 
+            const res = await login({email,password}).unwrap()
+
+            if(res.success){
+                dispatch(setUser(res.user))
+                navigate('/profile')
+            } else {
+                console.log(res)
+            }
 
         } catch (error : any) {
             if (error.response && error.response.data) {

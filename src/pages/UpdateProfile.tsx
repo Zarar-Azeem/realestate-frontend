@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
-import { useGetUserQuery, useUpdateUserMutation } from '../slices/userApiSlice'
+import { useGetAuthUserQuery, useUpdateUserMutation } from '../slices/userApiSlice'
 import { useNavigate } from 'react-router-dom'
 
 const UpdateProfile = () => {
@@ -9,7 +9,7 @@ const UpdateProfile = () => {
     const user = useSelector((state : RootState)=> state.auth.user)
     const navigate = useNavigate()
 
-    const { refetch } = useGetUserQuery({})
+    const { refetch } = useGetAuthUserQuery({})
     const [ update , { error : err }] = useUpdateUserMutation()
 
     const [error, setError ] = useState<string>('')
