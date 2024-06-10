@@ -1,10 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Outlet, Navigate } from 'react-router-dom'
+import { RootState } from '../store'
 
 const PrivateRoutes = () => {
-            const token = localStorage.getItem('token')
+     const auth = useSelector((state:RootState)=> state.auth.authenticated)
     return(
-         token ? <Outlet/> : <Navigate to="/login"/>
+         auth ? <Outlet/> : <Navigate to="/login"/>
     )
 }
 

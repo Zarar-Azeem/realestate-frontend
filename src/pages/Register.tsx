@@ -19,17 +19,16 @@ const Register = () => {
             const res : AuthResponse= await axios.post(" http://localhost:3000/api/user/register", {
                 name,email,password
             })
-            if(res.data.success){
-                localStorage.setItem('token', res.data.token)
-                navigate("/")
-                console.log("Response", res.data.message)
-            }
+            // if(res.success){
+            //     localStorage.setItem('token', res.data.token)
+            //     navigate("/")
+            //     console.log("Response", res.data.message)
+            // }
         } catch (error : any ) {
             if(error.response && error.response.data){
                 setError(error.response.data.message || "Login Failed")
             } else {
                 setError('Network error or server unavailable');
-
             }
         }
         

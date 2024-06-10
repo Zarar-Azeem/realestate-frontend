@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
+import { useGetPropertiesQuery } from '../slices/propertyApiSlice';
 
 
 
 const Search = () => {
   const [active, setActive] = useState<string>('')
-  const [query, setQuery] = useState<Query>({
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  
+  const [query, setQuery] = useState({
     type:'',
     location: '',
     minPrice: 0,
     maxPrice: 0
   })
+  
+  
+
+
+
   const selectType = (val : string) =>{
     setActive(prev => val)
   }

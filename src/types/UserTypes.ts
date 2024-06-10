@@ -1,15 +1,21 @@
 export type AuthResponse = {
-    data :{
-        success: boolean,
-        message: string,
-        token: string
-    }
+    success:boolean
+    user: User
 }
 
 
 export type User ={
+    id?:string
     name: string 
     email: string 
-    number: number | null
+    number: string
+}
 
+export interface UpdateUser extends User {
+    password : string
+}
+
+export type UpdateResponse = {
+    success : boolean
+    message : string
 }

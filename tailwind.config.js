@@ -18,6 +18,9 @@ export default {
         input:{
           "@apply py-2 px-3 border-slate-300 border rounded-lg focus:outline-none text-sm":{}
         },
+        textarea:{
+          "@apply py-2 px-3 border-slate-300 border rounded-lg focus:outline-none text-sm":{}
+        },
         ".type-btn":{
           "@apply py-2 px-4":{}
         },

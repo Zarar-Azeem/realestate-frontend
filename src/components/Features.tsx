@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import Map from './Map'
 import "leaflet/dist/leaflet.css"
+import { Property } from '../types/PropertyTypes'
+import { useGetUserQuery } from '../slices/userApiSlice'
 
-const Features = () => {
+const Features = ({description , userId}: Property) => {
+    const { data : user } = useGetUserQuery(userId)
 
     const [saved, setSaved] = useState<boolean>(true)
 
@@ -12,26 +15,21 @@ const Features = () => {
 
   return (
     <div className='flex flex-col sm:text text-sm '>
-            <p className='text-xl font-semibold pb-6 '>General</p>
-            <div className='flex flex-col gap-2 pl-4'>
-                <div>
-                    <p className='text-[0.85rem] md:text-[1rem] font-semibold'>Utilities</p>
-                    <p className='text-sm ml-2'>Renter is responsible</p>
-                </div>
-                <div>
-                    <p className='text-[0.85rem] md:text-[1rem]  font-semibold'>Pet Policy</p>
-                    <p className='text-sm ml-2'>Pets are Allowed</p>
-                </div>
+            <p className='text-[0.85rem] font-semibold pb-6  md:text-[1rem] '>Owner Info</p>
+            <div className='flex flex-col gap-1 pl-4 '>
+                <p>Name: {user?.name}</p>
+                <p>Email: {user?.email} </p>
+                <p>Phone Number: {user?.number}</p>
             </div>
             <div className='flex flex-col'>
                 <p className='font-semibold py-6 text-[0.85rem] md:text-[1rem]  '>Room Sizes</p>
                 <div className='flex gap-8 pl-4 items-center'>
-                    <p className='px-2'>80sqm</p>
+                    <p className='px-2'>{description?.size}sqm</p>
                     <div className='flex w-fit border-none rounded-sm items-center gap-2 p-2'>
-                        <p><i className="px-2 fa-solid fa-bed"></i>3 Bedrooms</p>
+                        <p><i className="px-2 fa-solid fa-bed"></i>{description?.bedrooms} Bedrooms</p>
                     </div>
                     <div className='flex w-fit border-none rounded-sm items-center gap-2 p-2'>
-                        <p><i className="px-2 fa-solid fa-bath"></i>2 Bathrooms</p>
+                        <p><i className="px-2 fa-solid fa-bath"></i>{description?.bathrooms} Bathrooms</p>
                     </div>
                 </div>
             </div>

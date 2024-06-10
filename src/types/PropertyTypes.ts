@@ -1,13 +1,22 @@
-type Property ={
-    name: string,
+export type Property ={
+    _id:string
+    title: string,
     price:number,
-    location:string,
-    images:[],
+    body:string
+    // images:[],
     description:{
+        location:string,
         bedrooms:number,
         bathrooms:number,
         size:number,
-    }
+    },
+    userId: string
+}
+
+export type CreateProperty = {
+    error: any
+    success : boolean
+    property: Property
 }
 
 type Query = {
@@ -16,3 +25,6 @@ type Query = {
     minPrice: number,
     maxPrice: number
   }
+ export type PropertyListProps = {
+    properties: Property[];
+   }
