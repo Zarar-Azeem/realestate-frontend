@@ -9,6 +9,7 @@ export type User ={
     name: string 
     email: string 
     number: string
+    avatar?: string
 }
 
 export interface UpdateUser extends User {

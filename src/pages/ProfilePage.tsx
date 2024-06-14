@@ -13,10 +13,10 @@ const ProfilePage = () => {
 
     const [tab, setTab] = useState('mylists')
     const { data : user } = useGetAuthUserQuery({})
-
     const toggleTabs = ( tab: string )=>{
         setTab(prev => tab)
     }
+    
     
     const Tabs = () =>{
         switch(tab){
@@ -32,7 +32,7 @@ const ProfilePage = () => {
                 <div className='flex flex-col bg-white pt-6'>
                     <div className='flex items-center h-[5rem] justify-between'>
                         <div className='flex items-center'>
-                            <div className='rounded-full bg-black w-16 h-16 text-center'>2</div>
+                            <div className='rounded-full bg-black w-16 h-16 flex'><img className='rounded-full flex items-center' src={user?.avatar} alt="" /></div>
                             <div className='pl-4'>{user?.name}</div>
                         </div>
                         <div>

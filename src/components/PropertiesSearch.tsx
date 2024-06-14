@@ -1,20 +1,12 @@
-import React from 'react';
+import React, { FormEventHandler } from 'react';
+import axios from 'axios';
 import { useLazySearchPropertiesQuery } from '../slices/propertyApiSlice';
 
-const PropertiesSearch = () => {
+type SearchProps = {
+    handleSubmit: FormEventHandler<HTMLFormElement>
+}
 
-    const [ getProperties , data ] = useLazySearchPropertiesQuery()
-
-    const handleSubmit = async (e : React.FormEvent<EventTarget>) => {
-        e.preventDefault()
-        const formData = new FormData(e.target as HTMLFormElement)
-        const location = formData.get('location')
-        
-        console.log({location})
-        await getProperties(location)
-        console.log("Data" + data.data)
-        
-    };  
+const PropertiesSearch = ({handleSubmit} : SearchProps) => {
 
   return (
     <div className="my-2 block">

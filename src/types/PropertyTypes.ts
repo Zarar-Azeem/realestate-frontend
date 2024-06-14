@@ -19,12 +19,6 @@ export type CreateProperty = {
     property: Property
 }
 
-type Query = {
-    type: string,
-    location: string,
-    minPrice: number,
-    maxPrice: number
-  }
- export type PropertyListProps = {
+export type PropertyListProps = {
     properties: Property[];
-   }
+}

@@ -9,10 +9,12 @@ const UpdateProfile = () => {
     const user = useSelector((state : RootState)=> state.auth.user)
     const navigate = useNavigate()
 
+    const [error, setError ] = useState<string>('')
+
     const { refetch } = useGetAuthUserQuery({})
     const [ update , { error : err }] = useUpdateUserMutation()
-
-    const [error, setError ] = useState<string>('')
+    
+    
     const handleSubmit = async (e : React.FormEvent<EventTarget>) => {
         e.preventDefault()
         const formData = new FormData(e.target as HTMLFormElement)
@@ -21,9 +23,10 @@ const UpdateProfile = () => {
         const email = formData.get("email") as string
         const number = formData.get("number") as string
         const password = formData.get("password") as string
-
+        const avatar = formData.get("avatar") as string
         try {
-            const res  = await update({ name, email, password , number}).unwrap()
+            const res  = await update({ name, email, password , number , avatar}).unwrap()
+            console.log(avatar)
             if(res.success) {
                 refetch()
                 navigate('/profile')
@@ -37,12 +40,12 @@ const UpdateProfile = () => {
 
     return (
         <div>
-            <form className='form-container' onSubmit={handleSubmit}>
+            <form className='form-container' onSubmit={handleSubmit} encType="multipart/form-data">
                 <p className='text-center text-xl font-medium'>Update Profile</p>
                 <div className='flex items-center py-2 px-4'>
                     <div className='rounded-full bg-black w-16 h-16 text-center basis-1/5'>2</div>
                     <div className='input-field flex-grow'>
-                        <input className='file-input rounded-lg' type="file" name="images" id="images" />
+                        <input className='file-input rounded-lg' type="file" name="avatar" id="avatar" />
                     </div>
                 </div>
                 <div className='input-field w-full'>

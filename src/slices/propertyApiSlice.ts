@@ -19,6 +19,7 @@ const propertyApiSlice = baseApi.injectEndpoints({
             query: (query) => ({
                 url: `/api/property/search?${query}`,
                 method: 'GET'
+                
             })
         }),
         getUserProperties : build.query<Property[], any>({
