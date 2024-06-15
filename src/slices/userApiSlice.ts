@@ -25,11 +25,11 @@ export const userApiSlice = baseApi.injectEndpoints({
                 method: 'GET'
             })
         }),
-        updateUser: build.mutation<UpdateResponse , UpdateUser>({
+        updateUser: build.mutation<UpdateResponse , any>({
             query: (data) => ({
                 url: '/api/user/updateuser',
                 method: 'PATCH',
-                body : {...data}
+                body : data
             })
         })
     })
