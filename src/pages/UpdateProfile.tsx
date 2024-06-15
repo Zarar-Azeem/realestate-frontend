@@ -10,7 +10,7 @@ const UpdateProfile = () => {
     const user = useSelector((state : RootState)=> state.auth.user)
     const navigate = useNavigate()
 
-    const [ update ] = useUpdateUserMutation()
+    const [ update , { isLoading }] = useUpdateUserMutation()
     const { refetch} = useGetAuthUserQuery({})
 
     const [ error , setError] = useState('')
@@ -46,12 +46,12 @@ const UpdateProfile = () => {
         register_form.append('avatar' , fileData)
         console.log(fileData)
         try {
-            // const response = await update(register_form).unwrap();
-            // console.log(response)
-            // if(response.success){
-            //     refetch()
-            //     navigate('/profile')
-            // }
+            const response = await update(register_form).unwrap();
+            console.log(response)
+            if(response.success){
+                refetch()
+                navigate('/profile')
+            }
         } catch (err) {
             console.log(err);
         }
@@ -107,7 +107,7 @@ const UpdateProfile = () => {
                 </div>
                 {error && <span> {error} </span>}
                 <div className="input-field">
-                    <button className="button-cta w-full" type='submit'>Update</button>
+                    <button className="button-cta w-full disabled:bg-slate-400" disabled={isLoading ? true : false} type='submit'>{isLoading? 'Updating' : 'Update'}</button>
                 </div>
             </form>
         </div>
