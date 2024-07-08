@@ -7,6 +7,13 @@ import { capitalize } from '../utils'
 
 export const AddProperty = () => {
     const [error, setError] = useState<string>('')
+    const [files, setFiles] = useState([]);
+
+    const handleFileChange = (e : any) => {
+        const fls = Array.from(e.currentTarget.files);
+        setFiles(fls as any);
+    }
+
     const navigate = useNavigate()
     const [ createProperty , { error : err} ] = useCreatePropertyMutation()
     const { refetch } = useGetUserPropertiesQuery({})
@@ -14,8 +21,7 @@ export const AddProperty = () => {
 
     const handleSubmit = async(e : React.FormEvent<EventTarget>) =>{
         e.preventDefault()
-        const formData = new FormData(e.target as HTMLFormElement)
-
+        const formData = new FormData(e.currentTarget as HTMLFormElement)
         const title = formData.get('title') as string
         const location = capitalize(formData.get( 'location') as string)
         const price = formData.get( 'price')
@@ -23,12 +29,14 @@ export const AddProperty = () => {
         const bathrooms = formData.get('bathrooms')
         const size = formData.get('size')
         const body = formData.get('body')
+        const images  =  files
         let description = {
             location, bedrooms , bathrooms, size
         }
 
         try {
-            const res : CreateProperty = await createProperty({title, price,body, description}).unwrap()
+            console.log(images)
+            const res : CreateProperty = await createProperty({title, price,body,images, description}).unwrap()
             if(res.success){
                 ref()
                 refetch()
@@ -44,7 +52,7 @@ export const AddProperty = () => {
 
     return (
         <div className='w-4/5 mx-auto sm:flex block'>
-            <form className='basis-2/5 flex flex-col py-6' onSubmit={handleSubmit}>
+            <form className='basis-2/5 flex flex-col py-6' encType='multipart/form-data' onSubmit={handleSubmit}>
             <p className='text-xl text-center font-medium py-6'>Add a new Property</p>
                 <div className='input-field w-full'>
                     <label className='ml-1' htmlFor="name">Name</label>
@@ -76,7 +84,7 @@ export const AddProperty = () => {
                 </div>
                 <div className='input-field w-full'>
                     <label htmlFor="images">Select Photos</label>
-                    <input className='file-input rounded-lg outline-slate-200' type="file" name="images" id="images" />
+                    <input className='file-input rounded-lg outline-slate-200' multiple onChange={handleFileChange} type="file" name="images" id="images" />
                 </div>
                 {error && <span>{error}</span>}
                 <div className='input-field py-4'>

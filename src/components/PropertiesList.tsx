@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import LargeCard from './LargeCard'
-import { useGetPropertiesQuery } from '../slices/propertyApiSlice'
 import { Property } from '../types/PropertyTypes'
+import axios from 'axios'
 
 const PropertiesList  = ({properties} : any) => {
+  const url = new URL(window.location.href)
   const [results, setResults] = useState<Property[] | undefined>([])
-  const { data } = useGetPropertiesQuery({})
+  const searchParams = new URLSearchParams(url.search);
+  const location = searchParams.get('location') || '';
+  const minPrice = searchParams.get('minPrice') || 0;
+  const maxPrice = searchParams.get('maxPrice') || 1000000;
+  const bedrooms = searchParams.get('bedrooms') || '';
+
 
   useEffect(() =>{
-    if(properties.length == 0 ){
-      setResults(data)
-    } else {
-      setResults(properties)
+    const fetch = async()=>{
+      const res = await axios.get(
+        `http://localhost:3000/api/property/search?location=${location}&minPrice=${minPrice}&maxPrice=${maxPrice}&bedrooms=${bedrooms}`)
+      setResults(res.data)
     }
+    fetch()
   },[properties])
 
   return (

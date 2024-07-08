@@ -8,10 +8,10 @@ const Info = ({title, price , body , description, userId}: Property) => {
    
     return (
         <div className='h-full'>
-            <div className='h-[45%] '>
+            <div className='h-[50%] '>
                 <Slider images = {images}/>
             </div>
-            <div className='h-[55%] flex flex-col py-16'>
+            <div className='h-[55%] flex flex-col py-8'>
                 <div className='grid grid-cols-5 grid-cols-auto'>
                     <div className='flex flex-col col-span-4 gap-4 '>
                         <p className='text-xl'>{title}</p>

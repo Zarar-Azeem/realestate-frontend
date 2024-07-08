@@ -14,10 +14,9 @@ const UpdateProfile = () => {
 
     const [ error , setError] = useState('')
     
-    const uploadFile = async (e : any) => {
+    const handleSubmit = async (e : any) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
-        console.log(formData)
         try {
             const response = await update(formData).unwrap();
             console.log(response)
@@ -32,7 +31,7 @@ const UpdateProfile = () => {
     }
     return (
         <div>
-            <form className='form-container' onSubmit={uploadFile} encType="multipart/form-data">
+            <form className='form-container' onSubmit={handleSubmit} encType="multipart/form-data">
                 <p className='text-center text-xl font-medium'>Update Profile</p>
                 <div className='flex items-center py-2 px-4'>
                 <div className='rounded-full bg-black w-16 h-16 flex'><img className='rounded-full flex items-center' src={user?.avatar} alt="" /></div>

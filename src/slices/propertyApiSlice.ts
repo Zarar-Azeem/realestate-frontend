@@ -1,6 +1,8 @@
 import { baseApi } from "../api/api";
 import { Property, PropertyListProps } from "../types/PropertyTypes";
 
+const url = new URL(window.location.href)
+
 const propertyApiSlice = baseApi.injectEndpoints({
     endpoints : (build) => ({
         getProperties : build.query<Property[], any>({
@@ -58,5 +60,4 @@ export const { useCreatePropertyMutation,
                 useDeletePropertyMutation,
                 useGetOnePropertyQuery,
                 useGetSavedPropertiesQuery,
-                useLazySearchPropertiesQuery
             } = propertyApiSlice
