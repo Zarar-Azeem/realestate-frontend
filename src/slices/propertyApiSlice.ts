@@ -1,5 +1,6 @@
 import { baseApi } from "../api/api";
-import { Property, PropertyListProps } from "../types/PropertyTypes";
+import { Property } from "../types/PropertyTypes";
+import { setProperties } from "./propertySlice";
 
 const url = new URL(window.location.href)
 
@@ -9,7 +10,15 @@ const propertyApiSlice = baseApi.injectEndpoints({
             query: () => ({
                 url: '/api/property',
                 method: 'GET'
-            })
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                  const { data } = await queryFulfilled
+                  dispatch(setProperties(data))
+                } catch (err) {
+                  console.log(err)
+                }
+              }
         }),
         getOneProperty : build.query<Property, any>({
             query: (id) => ({

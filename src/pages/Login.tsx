@@ -26,8 +26,6 @@ const Login = () => {
             if(res.success){
                 dispatch(setUser(res.user))
                 navigate('/profile')
-            } else {
-                console.log(res)
             }
 
         } catch (error : any) {

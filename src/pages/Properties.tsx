@@ -5,9 +5,12 @@ import Map from '../components/Map'
 import axios from 'axios'
 import { Property } from '../types/PropertyTypes'
 import { useSearchParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setProperties } from '../slices/propertySlice'
 
 const Properties = () => {
-  const [properties, setProperties] = useState<Property[]>([])
+  // const [properties, setProperties] = useState<Property[]>([])
+  const dispatch = useDispatch()
   const url = new URL(window.location.href)
 
   const [searchParams, setSearchParams] = useSearchParams({
@@ -36,7 +39,7 @@ const Properties = () => {
     try {
       const res = await axios.get(
         `http://localhost:3000/api/property/search?location=${location}&minPrice=${minPrice}&maxPrice=${maxPrice}&bedrooms=${bedrooms}`)
-        setProperties(res.data)
+        dispatch(setProperties(res.data))
     } catch (error) {
         console.error(error)
     }
@@ -46,7 +49,7 @@ const Properties = () => {
     <div className='md:grid grid-cols-5 flex flex-col w-full mx-auto'>
             <div className="col-span-3 mr-6 flex flex-col">
                 <PropertiesSearch handleSubmit={handleSubmit}/>
-                <PropertiesList properties={properties}/>
+                <PropertiesList/>
             </div>
           <div className='map_container w-full hidden md:block col-span-2 rounded-md'>
             <Map/>

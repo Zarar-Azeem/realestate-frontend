@@ -8,9 +8,7 @@ import { Property } from '../types/PropertyTypes'
 export const PropertryPage = () => {
 
   const { id } = useParams()
-  console.log(id)
   const { data } = useGetOnePropertyQuery(id)
-  console.log(data?.description.location)
 
   return (
     <div className='property_page block sm:flex flex-col justify-between lg:flex-row py-6'>
