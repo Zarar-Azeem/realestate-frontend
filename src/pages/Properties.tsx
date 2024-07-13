@@ -46,14 +46,13 @@ const Properties = () => {
   };  
 
   return (
-    <div className='md:grid grid-cols-5 flex flex-col w-full mx-auto'>
-            <div className="col-span-3 mr-6 flex flex-col">
+    <div className='md:grid grid-cols-6 flex flex-col w-full mx-auto'>
+            <div className="search_container col-span-2 mr-6">
                 <PropertiesSearch handleSubmit={handleSubmit}/>
-                <PropertiesList/>
             </div>
-          <div className='map_container w-full hidden md:block col-span-2 rounded-md'>
-            <Map/>
-          </div>
+            <div className='w-full col-span-4 py-8'>
+                  <PropertiesList/>
+            </div>
       </div>
     
   )

@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import LargeCard from './LargeCard'
 import { Property } from '../types/PropertyTypes'
-import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
-import { setProperties } from '../slices/propertySlice'
 
-const PropertiesList  = ({properties} : any) => {
+const PropertiesList  = () => {
   const [results, setResults] = useState<Property[] | undefined>([])
+  const [count, setCount] = useState(0)
+
   const data = useSelector((state : RootState) => state.property.properties)
 
 
   useEffect(() =>{
     setResults(data)
-    console.log('1')
+    setCount(prev => prev +1)
+    console.log(count)
   },[data])
 
   return (
@@ -28,11 +29,12 @@ const PropertiesList  = ({properties} : any) => {
         }
         </div>
         <div className='sm:hidden flex flex-col gap-4'>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+        {results?.length != 0 ?
+           results?.map((property: Property)=>
+            <Card key={property._id} {...property} />) 
+           : 
+          <div>No Properties Found</div>
+        }
         </div>
      </div>
   )
