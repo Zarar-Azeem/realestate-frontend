@@ -10,8 +10,6 @@ export const AddProperty = () => {
     const [files, setFiles] = useState([]);
 
     const handleFileChange = (e : any) => {
-        const fls = Array.from(e.currentTarget.files);
-        setFiles(fls as any);
     }
 
     const navigate = useNavigate()
@@ -29,14 +27,10 @@ export const AddProperty = () => {
         const bathrooms = formData.get('bathrooms')
         const size = formData.get('size')
         const body = formData.get('body')
-        const images  =  files
-        let description = {
-            location, bedrooms , bathrooms, size
-        }
-
+        const pics  =  files
         try {
-            console.log(images)
-            const res : CreateProperty = await createProperty({title, price,body,images, description}).unwrap()
+            console.log(pics)
+            const res : CreateProperty = await createProperty({title, price,body, location,size,bedrooms,bathrooms}).unwrap()
             if(res.success){
                 ref()
                 refetch()
@@ -84,7 +78,7 @@ export const AddProperty = () => {
                 </div>
                 <div className='input-field w-full'>
                     <label htmlFor="images">Select Photos</label>
-                    <input className='file-input rounded-lg outline-slate-200' multiple onChange={handleFileChange} type="file" name="images" id="images" />
+                    <input className='file-input rounded-lg outline-slate-200' onChange={(e : any)=> { setFiles(e.target.files[0]) }} type="file" name="pics" id="images" />
                 </div>
                 {error && <span>{error}</span>}
                 <div className='input-field py-4'>
