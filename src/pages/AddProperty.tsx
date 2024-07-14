@@ -52,7 +52,7 @@ export const AddProperty = () => {
 
     return (
         <div className='w-4/5 mx-auto sm:flex block'>
-            <form className='basis-2/5 flex flex-col py-6' encType='multipart/form-data' onSubmit={handleSubmit}>
+            <form className='basis-3/5 flex flex-col py-6' encType='multipart/form-data' onSubmit={handleSubmit}>
             <p className='text-xl text-center font-medium py-6'>Add a new Property</p>
                 <div className='input-field w-full'>
                     <label className='ml-1' htmlFor="name">Name</label>
@@ -91,9 +91,6 @@ export const AddProperty = () => {
                     <button className='button-cta w-full px-4' type='submit'>Post Property</button>
                 </div>
             </form>
-            <div className='map_container w-3/6 mx-auto hidden sm:inline-block'>
-                <Map />
-            </div>
             <p></p>
     </div>
     )
