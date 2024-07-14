@@ -9,8 +9,6 @@ export const AddProperty = () => {
     const [error, setError] = useState<string>('')
     const [files, setFiles] = useState([]);
 
-    const handleFileChange = (e : any) => {
-    }
 
     const navigate = useNavigate()
     const [ createProperty , { error : err} ] = useCreatePropertyMutation()
@@ -20,17 +18,9 @@ export const AddProperty = () => {
     const handleSubmit = async(e : React.FormEvent<EventTarget>) =>{
         e.preventDefault()
         const formData = new FormData(e.currentTarget as HTMLFormElement)
-        const title = formData.get('title') as string
-        const location = capitalize(formData.get( 'location') as string)
-        const price = formData.get( 'price')
-        const bedrooms = formData.get('bedrooms')
-        const bathrooms = formData.get('bathrooms')
-        const size = formData.get('size')
-        const body = formData.get('body')
-        const pics  =  files
         try {
-            console.log(pics)
-            const res : CreateProperty = await createProperty({title, price,body, location,size,bedrooms,bathrooms}).unwrap()
+            console.log(files)
+            const res : CreateProperty = await createProperty(formData).unwrap()
             if(res.success){
                 ref()
                 refetch()
@@ -78,7 +68,7 @@ export const AddProperty = () => {
                 </div>
                 <div className='input-field w-full'>
                     <label htmlFor="images">Select Photos</label>
-                    <input className='file-input rounded-lg outline-slate-200' onChange={(e : any)=> { setFiles(e.target.files[0]) }} type="file" name="pics" id="images" />
+                    <input className='file-input rounded-lg outline-slate-200' multiple type="file" name="pics" id="images" />
                 </div>
                 {error && <span>{error}</span>}
                 <div className='input-field py-4'>
