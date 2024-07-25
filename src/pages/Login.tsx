@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { AuthResponse } from '../types/UserTypes'
 import { useLoginMutation } from '../slices/authApiSlice'
 import { setUser } from '../slices/authSlice'
 import { useDispatch } from 'react-redux'

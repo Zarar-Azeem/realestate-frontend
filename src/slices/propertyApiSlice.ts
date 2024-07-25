@@ -1,15 +1,14 @@
 import { baseApi } from "../api/api";
 import { Property } from "../types/PropertyTypes";
-import { setProperties } from "./propertySlice";
+import { setProperties,setSavedProperties } from "./propertySlice";
 
-const url = new URL(window.location.href)
 
 const propertyApiSlice = baseApi.injectEndpoints({
     endpoints : (build) => ({
         getProperties : build.query<Property[], any>({
             query: () => ({
                 url: '/api/property',
-                method: 'GET'
+                method: 'GET',
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
@@ -18,7 +17,7 @@ const propertyApiSlice = baseApi.injectEndpoints({
                 } catch (err) {
                   console.log(err)
                 }
-              }
+              },
         }),
         getOneProperty : build.query<Property, any>({
             query: (id) => ({
@@ -30,36 +29,49 @@ const propertyApiSlice = baseApi.injectEndpoints({
             query: (query) => ({
                 url: `/api/property/search?${query}`,
                 method: 'GET'
-                
             })
         }),
         getUserProperties : build.query<Property[], any>({
             query: () => ({
                 url: '/api/property/getuserproperty',
                 method: 'GET'
-            })
+            }),
+            providesTags:['userProperties']
         }),
         getSavedProperties : build.query<Property[], any>({
             query: () => ({
-                url: '/api/property/getsavedproperty',
+                url: '/api/property/savedproperties',
                 method: 'GET'
-            })
+            }),
+            async onQueryStarted(id, { dispatch, queryFulfilled }) {
+                try {
+                  const { data } = await queryFulfilled
+                  dispatch(setSavedProperties(data))
+                } catch (err) {
+                    console.log(err)
+                }
+              }
         }),
         createProperty: build.mutation({
             query: (data) => ({
                 url: '/api/property/create',
                 method: 'POST',
                 body: data,
-                
             }),
-            invalidatesTags: ['property'],
-            
+            invalidatesTags: ['property' , 'userProperties'],
         }),
         deleteProperty: build.mutation({
             query: (id) => ({
                 url: `/api/property/delete/${id}`,
                 method: 'DELETE'
-            })
+            }),
+            invalidatesTags:['userProperties' , 'savedProperty']
+        }),
+        saveProperty: build.mutation({
+            query:(id)=>({
+                url:`/api/property/saveproperty/${id}`,
+                method:'POST'
+            }),
         })
     })
 })
@@ -71,4 +83,5 @@ export const { useCreatePropertyMutation,
                 useDeletePropertyMutation,
                 useGetOnePropertyQuery,
                 useGetSavedPropertiesQuery,
+                useSavePropertyMutation
             } = propertyApiSlice

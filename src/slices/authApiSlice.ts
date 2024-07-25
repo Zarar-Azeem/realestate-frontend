@@ -22,7 +22,7 @@ const authApiSlice = baseApi.injectEndpoints({
             query: (data) => ({
                 url: '/api/user/register',
                 method: 'POST',
-                data
+                body: {...data}
             })
         })
     })

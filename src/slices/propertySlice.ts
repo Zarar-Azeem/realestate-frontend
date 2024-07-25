@@ -4,10 +4,12 @@ import { Property } from "../types/PropertyTypes"
 
 type Properties = {
     properties: Property[]  // Array of properties
+    savedProperties: Property[]  // Array of properties
 }
 
 const initialState : Properties = {
-    properties : []
+    properties : [],
+    savedProperties: []
 }
 
 const propertySlice = createSlice({
@@ -16,11 +18,14 @@ const propertySlice = createSlice({
     reducers: {
         setProperties( state , action : PayloadAction<Property[]>) {
             state.properties = action.payload
-        }
+        },
+        setSavedProperties( state , action : PayloadAction<Property[]>) {
+            state.savedProperties = action.payload
+        },
     }
 })
 
-export const { setProperties } = propertySlice.actions
+export const { setProperties, setSavedProperties } = propertySlice.actions
 
 export default propertySlice.reducer
 

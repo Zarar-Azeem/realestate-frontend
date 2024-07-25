@@ -1,28 +1,21 @@
 import React, { useState } from 'react'
-import Map from '../components/Map'
 import { useCreatePropertyMutation, useGetPropertiesQuery, useGetUserPropertiesQuery } from '../slices/propertyApiSlice'
-import { CreateProperty, Property } from '../types/PropertyTypes'
+import { CreateProperty } from '../types/PropertyTypes'
 import { useNavigate } from 'react-router-dom'
-import { capitalize } from '../utils'
 
 export const AddProperty = () => {
+    
     const [error, setError] = useState<string>('')
-    const [files, setFiles] = useState([]);
-
 
     const navigate = useNavigate()
-    const [ createProperty , { error : err} ] = useCreatePropertyMutation()
-    const { refetch } = useGetUserPropertiesQuery({})
-    const { refetch : ref } = useGetPropertiesQuery({})
-
+    const [ createProperty , { error : err , isLoading} ] = useCreatePropertyMutation()
+    const { refetch } = useGetPropertiesQuery({})
     const handleSubmit = async(e : React.FormEvent<EventTarget>) =>{
         e.preventDefault()
         const formData = new FormData(e.currentTarget as HTMLFormElement)
         try {
-            console.log(files)
             const res : CreateProperty = await createProperty(formData).unwrap()
             if(res.success){
-                ref()
                 refetch()
                 navigate('/profile')
                 console.log(res)
@@ -72,7 +65,7 @@ export const AddProperty = () => {
                 </div>
                 {error && <span>{error}</span>}
                 <div className='input-field py-4'>
-                    <button className='button-cta w-full px-4' type='submit'>Post Property</button>
+                    <button className='button-cta w-full px-4  disabled:bg-slate-400' disabled={isLoading ? true : false} type='submit'>Post Property</button>
                 </div>
             </form>
             <p></p>

@@ -1,17 +1,15 @@
 import React from 'react'
 import Slider from './Slider'
-import { images } from '../data'
 import { Property } from '../types/PropertyTypes'
-import { useGetUserQuery } from '../slices/userApiSlice'
 
-const Info = ({title, price , body , description, userId}: Property) => {
+const Info = ({title, price , body ,images, description}: Property) => {
    
     return (
         <div className='h-full'>
-            <div className='h-[50%] '>
+            <div className='h-[60%] relative'>
                 <Slider images = {images}/>
             </div>
-            <div className='h-[55%] flex flex-col py-8'>
+            <div className='h-[50%] flex flex-col py-8'>
                 <div className='grid grid-cols-5 grid-cols-auto'>
                     <div className='flex flex-col col-span-4 gap-4 '>
                         <p className='text-xl'>{title}</p>

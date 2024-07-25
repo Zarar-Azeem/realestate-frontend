@@ -46,11 +46,11 @@ const Properties = () => {
   };  
 
   return (
-    <div className='md:grid grid-cols-6 flex flex-col w-full mx-auto'>
+    <div className='md:grid grid-cols-8 flex flex-col w-full mx-auto'>
             <div className="search_container col-span-2 mr-6">
                 <PropertiesSearch handleSubmit={handleSubmit}/>
             </div>
-            <div className='w-full col-span-4 py-8'>
+            <div className='w-full col-span-6 py-8'>
                   <PropertiesList/>
             </div>
       </div>
@@ -59,11 +59,3 @@ const Properties = () => {
 }
 
 export default Properties
-
-
-// <div className='bg-blue-500 py-16'>
-    //     <div className='flex flex-col w-4/5 mx-auto'>
-    //       <PropertiesSearch />
-    //       <PropertiesList/>
-    //     </div>
-    // </div>

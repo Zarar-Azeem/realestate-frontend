@@ -16,6 +16,6 @@ const baseQuery = fetchBaseQuery({
 
 export const baseApi = createApi({
     baseQuery: baseQuery,
-    tagTypes: ['user', 'property'],
+    tagTypes: ['user', 'property','userProperties', 'savedProperty'],
     endpoints: builder => ({})
 })

@@ -1,35 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Property } from '../types/PropertyTypes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
-import { useDeletePropertyMutation, useGetPropertiesQuery, useGetUserPropertiesQuery } from '../slices/propertyApiSlice'
+import { useDeletePropertyMutation, useGetPropertiesQuery, useGetSavedPropertiesQuery, useSavePropertyMutation } from '../slices/propertyApiSlice'
 import { Link } from 'react-router-dom'
 
 const LargeCard  = (props : Property) => {
-    const {title ,price, description, userId, _id } = props
+    const {title ,price, description,images, userId, _id } = props
+    const [count, setCount] = useState(0)
     const user = useSelector((state: RootState) => state.auth.user?.id)
-    const { refetch } = useGetUserPropertiesQuery({})
-    const { refetch : ref} = useGetPropertiesQuery({})
+    const properties = useSelector((state : RootState) => state.property.savedProperties)
+
+    const { refetch } = useGetPropertiesQuery({})
+    const { refetch : ref } = useGetSavedPropertiesQuery({})
     const [ deleteProperty ] = useDeletePropertyMutation()
+    const [ saveProperty ]  = useSavePropertyMutation()
+    useEffect(()=>{
+        console.log(count)
+    },[count])
     
     const handleDelete = async ()=>{
        try {
         const res =  await deleteProperty(_id).unwrap();
+        setCount(prev => prev + 1)
         console.log(res)
-        ref()
         refetch()
-       } catch (error) {
+    } catch (error) {
         console.error('Failed to delete property:', error);
-       }
+    }
+    
+}
 
+const handleBookmark = async () => {
+    try {
+        const res = await saveProperty(_id)
+        ref()
+        console.log(res)
+        } catch (error) {
+            console.error('Failed to delete property:', error);
+            
+        }
     }
 
   return (
-    
-    <div className=' bg-white flex w-full h-40 shadow-md rounded-lg cursor-pointer hover:shadow-lg'>
-        <div className='basis-2/6 bg-no-repeat bg-cover bg-center rounded-lg hover:shadow-md cursor-pointer h-full center rounded-l-lg w-full' style={{backgroundImage: `url(../images/house1.jpg)`}}>
-        
-        </div>
+    <div className='bg-white flex w-full h-40 shadow-md rounded-lg cursor-pointer hover:shadow-lg'>
+        <img className='basis-2/6 bg-no-repeat bg-cover bg-center rounded-lg hover:shadow-md cursor-pointer h-full center rounded-l-lg w-[1.5rem]'
+         src={images[0]} alt="" />
         <div className="flex-grow flex justify-between flex-col p-4">
             <div className="flex justify-between text-lg font-semibold w-full">
                 <div className='flex justify-between w-full'>
@@ -59,7 +75,7 @@ const LargeCard  = (props : Property) => {
                 </div>
                 <div className='flex gap-4'>
                     <div className='flex border-none rounded-sm bg-slate-100 items-center gap-2 p-2 hover:bg-gray-300'>
-                        <p><i className="fa-regular fa-heart"></i></p>
+                        <button onClick={handleBookmark}><i className={properties.some(post => post._id === _id) ? `text-red-500 fa-solid fa-heart` : 'fa-regular fa-heart'}></i></button>
                     </div>
                     <div className='flex border-none rounded-sm bg-slate-100 items-center gap-2 p-2 hover:bg-gray-300'>
                         <p><i className="fa-regular fa-message"></i></p>
