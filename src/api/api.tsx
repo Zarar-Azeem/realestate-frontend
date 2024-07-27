@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
+import { setProperties } from '../slices/propertySlice'
+import { Property } from '../types/PropertyTypes'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:3000',
@@ -17,5 +19,21 @@ const baseQuery = fetchBaseQuery({
 export const baseApi = createApi({
     baseQuery: baseQuery,
     tagTypes: ['user', 'property','userProperties', 'savedProperty'],
-    endpoints: builder => ({})
+    endpoints: builder => ({
+        getProperties : builder.query<Property[], any>({
+            query: () => ({
+                url: '/api/property',
+                method: 'GET',
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                  const { data } = await queryFulfilled
+                  console.log(data)
+                  dispatch(setProperties(data))
+                } catch (err) {
+                  console.log(err)
+                }
+              },
+        }),
+    })
 })

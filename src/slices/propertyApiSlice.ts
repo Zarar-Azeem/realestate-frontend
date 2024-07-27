@@ -5,20 +5,7 @@ import { setProperties,setSavedProperties } from "./propertySlice";
 
 const propertyApiSlice = baseApi.injectEndpoints({
     endpoints : (build) => ({
-        getProperties : build.query<Property[], any>({
-            query: () => ({
-                url: '/api/property',
-                method: 'GET',
-            }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-                try {
-                  const { data } = await queryFulfilled
-                  dispatch(setProperties(data))
-                } catch (err) {
-                  console.log(err)
-                }
-              },
-        }),
+        
         getOneProperty : build.query<Property, any>({
             query: (id) => ({
                 url: `/api/property/getproperty/${id}`,

@@ -5,8 +5,11 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './store.js'
+import { baseApi } from './api/api.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
+
+store.dispatch(baseApi.endpoints.getProperties.initiate({}))
 
 root.render(
   <React.StrictMode>
