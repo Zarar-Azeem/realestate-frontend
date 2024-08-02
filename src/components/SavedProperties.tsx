@@ -16,7 +16,7 @@ const SavedProperties = () => {
            properties?.map((property: Property)=>
             <LargeCard key={property._id} {...property} />) 
            : 
-          <div>No  Saved Properties Found</div>
+          <div className='text-center pt-5 font-bold'>No  Saved Properties</div>
         }
         </div>
         <div className='sm:hidden flex flex-col gap-4'>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import LargeCard from '../components/LargeCard'
-import Chat from '../components/Chat'
 import { Link } from 'react-router-dom'
 import { User } from '../types/UserTypes'
 import { useGetAuthUserQuery } from '../slices/userApiSlice'
@@ -22,7 +21,7 @@ const ProfilePage = () => {
         switch(tab){
             case "mylists" : return <MyProperties/>
             case "savedproperties" : return <SavedProperties/>
-            case "messages": return <Chat/>
+            case "messages": return <h2 className='text-center pt-5 font-bold'>To be Added</h2>
         }
     }
 

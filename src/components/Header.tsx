@@ -12,7 +12,6 @@ const Header = () => {
     const auth = useSelector((state: RootState) => state.auth.authenticated)
     const handleLogout = async () => {
         await logout({})
-        socket.disconnect();
         window.location.reload()
         navigate('/login')
     }
