@@ -1,20 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useGetMessagedUsersQuery, useLazyGetMessagesQuery } from '../slices/messageApiSlice'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
+import { MessageContainer } from './MessageContainer'
+import { Message } from '../types/MessageTypes'
+import { socket } from '../App'
+ 
+
 
 const Chat = () => {
-    const users : string[] = ["Zarar", "Ahrar", "Ali" , "Mashal","Usman" , "Umerr", "Mohammed", "Hassan" , "Hussain" , "Abu Bakr"]
+    const userId = useSelector((state:RootState) => state.auth.user?.id)
+    const [messages, setMessages] = useState<Message[]>([])
+    const [reciever, setReciever] = useState<{ name: string; _id: string; } | undefined>()
+    const { data : users} = useGetMessagedUsersQuery({})
+    const [ fetch ] = useLazyGetMessagesQuery({});
+
+    useEffect(() => {
+      socket.on('response', (data) => setMessages([...messages, data]));
+
+
+    }, [socket, messages]);
+
+    useEffect(() => {
+      socket.on('response', (data) => setMessages([...messages, data]));
+    }, [socket]);
+  
+    const handleGetMessages = async (chatId : string) => {
+      try {
+          const res = await fetch(chatId)
+          setReciever(res.data?.participants[0])
+          setMessages(res.data?.messages as [])
+        
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+
+
   return (
-    <div className='flex '>
-        <div className='chat_names basis-[40%] rounded-lg bg-gray-300 p-3 flex flex-col gap-1 overflow-hidden'>
-            {users.map(user => 
-                <div className='rounded-lg p-6 text-start bg-white hover:bg-gray-200 cursor-pointer'>{user}</div>
+    <div className='flex'>
+        <div className='chat_names basis-[30%] rounded-lg bg-gray-100 p-3 flex flex-col gap-1 overflow-hidden'>
+            {users && users?.map(user => 
+                <button className={`${reciever?.name == user.name ? 'bg-slate-300' : 'bg-white'} rounded-lg p-3 text-start hover:bg-gray-200 cursor-pointer`}
+                 key={user._id}
+                 onClick={() => handleGetMessages(user._id)}
+                 >{user.name}</button>
             )}
         </div>
-        <div className='chat_container basis-[60%] bg-slate-200 h-[24.5rem]  p-3 overflow-hidden flex flex-col-reverse rounded-lg '>
-            <div className='flex gap-2'>
-                <input className="w-full" type="text" />
-                <button className='button bg-white'>Send</button>
-            </div>
-        </div>
+          <MessageContainer  messages={messages} reciever={reciever}  userId={userId}/>
     </div>
   )
 }

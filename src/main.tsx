@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.js'
+import App, { socket } from './App.js'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
@@ -10,6 +10,8 @@ import { baseApi } from './api/api.js'
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 store.dispatch(baseApi.endpoints.getProperties.initiate({}))
+
+
 
 root.render(
   <React.StrictMode>

@@ -4,14 +4,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useLogoutMutation } from '../slices/authApiSlice'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
+import { socket } from '../App'
 
 const Header = () => {
     const navigate = useNavigate()
     const [ logout ] = useLogoutMutation()
     const auth = useSelector((state: RootState) => state.auth.authenticated)
-    const user = useSelector((state: RootState) => state.auth.user)
     const handleLogout = async () => {
         await logout({})
+        socket.disconnect();
         window.location.reload()
         navigate('/login')
     }

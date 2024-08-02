@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useLoginMutation } from '../slices/authApiSlice'
 import { setUser } from '../slices/authSlice'
 import { useDispatch } from 'react-redux'
+import { socket } from '../App'
 
 
 const Login = () => {
@@ -24,7 +25,9 @@ const Login = () => {
 
             if(res.success){
                 dispatch(setUser(res.user))
+                socket.connect()
                 navigate('/profile')
+
             }
 
         } catch (error : any) {

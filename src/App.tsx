@@ -11,7 +11,14 @@ import ProfilePage from './pages/ProfilePage'
 import { AddProperty } from './pages/AddProperty'
 import UpdateProfile from './pages/UpdateProfile'
 import PrivateRoutes from './components/PrivateRoutes'
+import { io } from 'socket.io-client'
 
+export  const socket = io("http://localhost:3000" , 
+  {
+    autoConnect: false
+  }
+)
+  
 const App = () => {
   return (
     <>
