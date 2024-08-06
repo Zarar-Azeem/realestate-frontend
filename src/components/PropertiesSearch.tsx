@@ -15,14 +15,14 @@ const PropertiesSearch = ({handleSubmit} : SearchProps) => {
                     <input className="h-[2.5rem]" type="text" name="location" />
                         <div className='flex flex-col'>
                             <label htmlFor="type">Type</label>
-                            <select className='border border-bg-slate-300 space-y-2 p-4 rounded-lg h-[2rem]'   name="type" id="type">
-                                <option className='mb-2' value="buy">Buy</option>
-                                <option className='mb-2' value="rent">Rent</option>
+                            <select className='border border-bg-slate-300 rounded-lg h-[2rem]' name="type" id="type">
+                                <option value="sell">Buy</option>
+                                <option value="rent">Rent</option>
                             </select>
                         </div>
                         <div className='flex flex-col'>
-                            <label htmlFor="property">Property</label>
-                            <select className='border border-bg-slate-300 rounded-lg h-[2rem]'    name="property" id="property">
+                            <label htmlFor="propertytype">Property</label>
+                            <select className='border border-bg-slate-300 rounded-lg h-[2rem]' name="propertytype" id="propertytype">
                                 <option value="land">Land</option>
                                 <option value="appartment">Appartment</option>
                                 <option value="house">House</option>

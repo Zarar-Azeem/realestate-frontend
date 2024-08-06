@@ -28,17 +28,21 @@ const Properties = () => {
     const minPrice = formData.get('minPrice') || 0
     const maxPrice = formData.get('maxPrice') || 1000000
     const bedrooms = formData.get('bedrooms') || ''
+    const type = formData.get('type') || 'sell'
+    const propertytype = formData.get('propertytype') || ''
     
     setSearchParams({
       location: location as string,
       maxPrice: maxPrice as string,
       minPrice: minPrice as string,
       bedrooms: bedrooms as string,
+      type: type as string,
+      propertytype: propertytype as string,
     })
     
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/property/search?location=${location}&minPrice=${minPrice}&maxPrice=${maxPrice}&bedrooms=${bedrooms}`)
+        `http://localhost:3000/api/property/search?type=${type}&propertytype=${propertytype}&location=${location}&minPrice=${minPrice}&maxPrice=${maxPrice}&bedrooms=${bedrooms}`)
         dispatch(setProperties(res.data))
     } catch (error) {
         console.error(error)

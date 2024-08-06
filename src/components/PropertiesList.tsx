@@ -11,7 +11,6 @@ const PropertiesList  = () => {
 
   const data = useSelector((state : RootState) => state.property.properties)
 
-
   useEffect(() =>{
     setResults(data)
     setCount(prev => prev +1)

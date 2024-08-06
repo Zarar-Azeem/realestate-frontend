@@ -10,7 +10,7 @@ export default {
       addBase({});
       addComponents({
         ".form-container":{
-          "@apply md:w-2/5  mx-auto rounded-lg bg-slate-200 md:p-6 p-2 mt-12 shadow-lg":{}
+          "@apply md:w-3/5 lg:w-2/5  mx-auto rounded-lg bg-slate-200 md:p-6 p-2 mt-12 shadow-lg":{}
         },
         ".input-field": {
           "@apply py-2 px-4 flex flex-col w-full":{}

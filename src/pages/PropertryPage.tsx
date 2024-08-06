@@ -16,7 +16,7 @@ export const PropertryPage = () => {
             <Info {...data as Property}/>
         </div>
         <div className='flex-grow lg:ml-2'>
-            <Features  {...data as Property}/>
+            <Features {...data as Property}/>
         </div>
     </div>
   )

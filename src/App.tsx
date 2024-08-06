@@ -20,9 +20,9 @@ const App = () => {
     <div className='container'>
       <Routes>
           <Route path="/" element={ <Home/> } />
+          <Route path="/properties" element={ <Properties /> } />
+          <Route path="/propertypage/:id" element={ <PropertryPage/> } />
           <Route element={<PrivateRoutes />}>
-            <Route path="/properties" element={ <Properties/> } />
-            <Route path="/propertypage/:id" element={ <PropertryPage/> } />
             <Route path="/profile" element={ <ProfilePage/> } />
             <Route path="/addproperty" element={ <AddProperty/> } />
             <Route path="/updateproperty" element={ <UpdateProfile/> } />

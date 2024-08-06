@@ -28,7 +28,6 @@ export const baseApi = createApi({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                   const { data } = await queryFulfilled
-                  console.log(data)
                   dispatch(setProperties(data))
                 } catch (err) {
                   console.log(err)

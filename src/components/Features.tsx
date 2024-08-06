@@ -3,15 +3,34 @@ import Map from './Map'
 import "leaflet/dist/leaflet.css"
 import { Property } from '../types/PropertyTypes'
 import { useGetUserQuery } from '../slices/userApiSlice'
+import { useGetSavedPropertiesQuery, useSavePropertyMutation } from '../slices/propertyApiSlice'
+import { RootState } from '../store'
+import { useSelector } from 'react-redux'
 
-const Features = ({description , userId}: Property) => {
+const Features = ({_id ,description , userId}: Property) => {
     const { data : user } = useGetUserQuery(userId)
+    const { refetch : ref } = useGetSavedPropertiesQuery({})
+    const [ saveProperty ]  = useSavePropertyMutation()
+    const properties = useSelector((state : RootState) => state.property.savedProperties)
 
-    const [saved, setSaved] = useState<boolean>(true)
-
-    const toggleSave = () => {
-        setSaved(prev => !prev)
+    const savedFunc = () => {
+        if(properties.some(post => post._id === _id)){
+            return true
+        }
+        return false
+        
     }
+
+    const handleBookmark = async () => {
+        try {
+            const res = await saveProperty(_id)
+            ref()
+            console.log(res)
+            } catch (error) {
+                console.error('Failed to delete property:', error);
+                
+            }
+        }
 
   return (
     <div className='flex flex-col sm:text text-sm '>
@@ -40,8 +59,8 @@ const Features = ({description , userId}: Property) => {
             <div className='flex gap-4 justify-center w-full py-3'>
                 <button className='button bg-slate-200 flex items-center'>
                     <i className="fa-regular fa-message mr-2"></i>Message the Owner</button>
-                <button className='button bg-slate-200 flex items-center' onClick={toggleSave}>
-                    <i className={`${saved ? 'fa-solid text-red-500':'fa-regular'} fa-heart mr-2`}></i>{!saved ? 'Save the Property' : 'Property Saved'}</button>
+                <button className='button bg-slate-200 flex items-center gap-2' onClick={handleBookmark}>
+                    <i className= {savedFunc() ? `text-red-500 fa-solid fa-heart` : 'fa-regular fa-heart'}></i>{!savedFunc() ? 'Save the Property' : 'Property Saved'}</button>
             </div>
     </div>
   )

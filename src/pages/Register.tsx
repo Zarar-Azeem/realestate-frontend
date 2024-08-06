@@ -27,11 +27,12 @@ const Register = () => {
 
 
         } catch (error : any ) {
-            if(error.response && error.response.data){
-                setError(error.response.data.message || "Login Failed")
-            } else {
+            console.log(error.data)
+            if (error.data && error.status == 401) {
+                setError(error.data.message || 'Login failed');
+              } else {
                 setError('Network error or server unavailable');
-            }
+              }
         }
         
 
@@ -53,7 +54,7 @@ const Register = () => {
                         <label className='ml-1' htmlFor="password">Password</label>
                         <input className={error && "border-red-500"}  type="password" name='password'/>
                     </div>
-                    {error && <span className='text-red-500'>{error}</span>}
+                    {error && <span className='text-red-500 pl-4'>{error}</span>}
                     <div className='flex justify-center'>
                         <button className="button-cta mt-2" type='submit'>Register</button>
                     </div>

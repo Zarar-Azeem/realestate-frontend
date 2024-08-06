@@ -6,10 +6,13 @@ import { useNavigate } from 'react-router-dom'
 export const AddProperty = () => {
     
     const [error, setError] = useState<string>('')
+    const [type, setType] = useState<string>('sell')
+    const [propertyType, setPropertyType] = useState<string>('house')
 
     const navigate = useNavigate()
-    const [ createProperty , { error : err , isLoading} ] = useCreatePropertyMutation()
+    const [ createProperty , { error : err , isLoading } ] = useCreatePropertyMutation()
     const { refetch } = useGetPropertiesQuery({})
+
     const handleSubmit = async(e : React.FormEvent<EventTarget>) =>{
         e.preventDefault()
         const formData = new FormData(e.currentTarget as HTMLFormElement)
@@ -24,7 +27,6 @@ export const AddProperty = () => {
             setError("Catch" + err as string)
             console.log(err)
         }
-
     }
 
     return (
@@ -39,18 +41,34 @@ export const AddProperty = () => {
                     <label className='ml-1' htmlFor="location">Location</label>
                     <input className={error && "border-red-500"}  type="text" name='location'/>
                 </div>
-                <div className='input-field w-full'>
-                    <label className='ml-1' htmlFor="price">Price</label>
-                    <input className={error && "border-red-500"}  type="number" name='price'/>
+                <div className='input-field'>
+                    <label className='ml-1' htmlFor="propertytype">Type</label>
+                    <select className='rounded-lg border-slate-300 border py-1 px-2' onChange={e => setPropertyType(e.target.value)}  name="propertytype" id="propertytype">
+                        <option value="house">House</option>
+                        <option value="land">Land</option>
+                        <option value="appartment">Appartment</option>
+                    </select>
                 </div>
-                <div className='input-field w-full'>
+                <div className='py-2 px-4 flex items-center gap-2'>
+                    <div className='basis-1/5'>
+                        <select className='rounded-lg border-slate-300 border py-1 px-2' onChange={e => setType(e.target.value)}  name="type" id="type">
+                            <option value="sell">Sell</option>
+                            <option value="rent">Rent</option>
+                        </select>
+                    </div>
+                    <div className='basis-4/5 flex items-center gap-2'>
+                        <label className='ml-1' htmlFor="price">Price</label>
+                        <input className={`w-full ${error && "border-red-500"}`} placeholder={`${type == 'rent' ? 'Rent per month' : 'Value of property'}`} type="number" name='price'/>
+                    </div>
+                </div>
+                {propertyType != 'land' && <><div className='input-field w-full'>
                     <label className='ml-1' htmlFor="bedrooms">Bedrooms</label>
                     <input className={error && "border-red-500"}  type="number" name='bedrooms'/>
                 </div>
                 <div className='input-field w-full'>
                     <label className='ml-1' htmlFor="bathrooms">Bathrooms</label>
                     <input className={error && "border-red-500"}  type="number" name='bathrooms'/>
-                </div>
+                </div></>}
                 <div className='input-field w-full'>
                     <label className='ml-1' htmlFor="size">Size</label>
                     <input className={error && "border-red-500"}  type="number" name='size'/>

@@ -25,15 +25,15 @@ const Login = () => {
             if(res.success){
                 dispatch(setUser(res.user))
                 navigate('/profile')
-
+            } else {
+                console.log(res)
             }
 
         } catch (error : any) {
-            if (error.response && error.response.data) {
-                setError(error.response?.data.message || 'Login failed');
+            if (error.data && error.status == 401) {
+                setError(error.data.message || 'Login failed');
               } else {
                 setError('Network error or server unavailable');
-
               }
         }
         
@@ -44,18 +44,17 @@ const Login = () => {
         <h2 className='text-center font-bold text-2xl'>Sign In to Your Account</h2>
             <form onSubmit={handleSubmit}>
                 <div className='input-field'>
-                    <label className='ml-1' htmlFor="email">Email</label>
+                    <label className='' htmlFor="email">Email</label>
                     <input className={error && "border-red-500" }  type="name" name='email'/>
                 </div>
                 <div className='input-field'>
-                    <label className='ml-1' htmlFor="password">Password</label>
+                    <label className='' htmlFor="password">Password</label>
                     <input className={error && "border-red-500"} type="password" name='password'/>
                 </div>
-                {error && <span className='text-red-500 '>{error}</span>}
+                {error && <span className='text-red-500 pl-4'>{error}</span>}
                 <div className='flex flex-col items-center'>
                     <button className="button-cta mt-2"><i className="mr-3 fa-solid fa-right-to-bracket"></i> Sign In</button>
                     <p className='my-4 text-sm'>Not a Member?<Link className='text-blue-500 ml-1' to="/register">Register now and get started!</Link></p>
-
                 </div>
             </form>
     </div>
