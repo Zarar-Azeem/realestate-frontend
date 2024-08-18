@@ -16,7 +16,7 @@ export default {
           "@apply py-2 px-4 flex flex-col w-full":{}
         },
         input:{
-          "@apply py-2 px-3 border-slate-300 border rounded-lg focus:outline-none text-sm":{}
+          "@apply py-2 px-3 border-slate-300 border rounded-lg focus:outline-none text-sm focus:outline focus:outline-slate-400 outline-offset-1":{}
         },
         textarea:{
           "@apply py-2 px-3 border-slate-300 border rounded-lg focus:outline-none text-sm":{}
@@ -29,6 +29,9 @@ export default {
         },
         ".button": {
           "@apply py-2 px-3 bg-slate-200 rounded-lg  font-semibold hover:bg-slate-100" : {}
+        },
+        ".dropdown-button": {
+          "@apply py-2 px-3 rounded-lg  font-semibold hover:bg-slate-100" : {}
         },
         ".file-input": {
           "@apply bg-slate-200 block w-full border shadow-sm rounded-sm text-sm file:border-0 file:me-4 file:rounded-lg file:bg-white file:py-1 file:px-2 file:cursor-pointer" :{}

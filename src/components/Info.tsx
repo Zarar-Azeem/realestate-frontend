@@ -6,10 +6,10 @@ const Info = ({title, price , body ,images, description}: Property) => {
    
     return (
         <div className='h-full'>
-            <div className='h-[60%] relative'>
+            <div className='sm:h-[60%] relative'>
                 <Slider images = {images}/>
             </div>
-            <div className='h-[50%] flex flex-col py-8'>
+            <div className='h-[40%] flex flex-col py-4 sm:py-4'>
                 <div className='grid grid-cols-5 grid-cols-auto'>
                     <div className='flex flex-col col-span-4 gap-4 '>
                         <p className='text-xl'>{title}</p>
