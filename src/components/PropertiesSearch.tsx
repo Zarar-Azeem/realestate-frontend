@@ -23,9 +23,9 @@ const PropertiesSearch = ({handleSubmit} : SearchProps) => {
                         <div className='flex flex-col'>
                             <label htmlFor="propertytype">Property</label>
                             <select className='border border-bg-slate-300 rounded-lg h-[2rem]' name="propertytype" id="propertytype">
+                                <option value="house">House</option>
                                 <option value="land">Land</option>
                                 <option value="appartment">Appartment</option>
-                                <option value="house">House</option>
                             </select>
                         </div>
                         <div className='flex flex-col'>

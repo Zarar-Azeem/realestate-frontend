@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropertiesSearch from '../components/PropertiesSearch'
 import PropertiesList from '../components/PropertiesList'
-import Map from '../components/Map'
 import axios from 'axios'
-import { Property } from '../types/PropertyTypes'
 import { useSearchParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setProperties } from '../slices/propertySlice'
 
 const Properties = () => {
-  // const [properties, setProperties] = useState<Property[]>([])
   const dispatch = useDispatch()
-  const url = new URL(window.location.href)
 
   const [searchParams, setSearchParams] = useSearchParams({
     location: '',
@@ -29,7 +25,7 @@ const Properties = () => {
     const maxPrice = formData.get('maxPrice') || 1000000
     const bedrooms = formData.get('bedrooms') || ''
     const type = formData.get('type') || 'sell'
-    const propertytype = formData.get('propertytype') || ''
+    const propertytype = formData.get('propertytype') || 'house'
     
     setSearchParams({
       location: location as string,

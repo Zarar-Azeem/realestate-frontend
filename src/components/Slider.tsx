@@ -25,8 +25,8 @@ const Slider = ({images} : SliderProps) => {
 
   return (
     <>
-      {images && <div className='grid grid-cols-3 lg:h-full md:h-[40%] h-[40%]'>
-        <img className='bg-no-repeat h-full w-full col-span-3 bg-cover bg-fit bg-center rounded-lg hover:shadow-md cursor-pointer'
+      {images && <div className='grid grid-cols-3 lg:h-full md:h-[60%] h-[40%]'>
+        <img className='bg-no-repeat h-[30rem] w-full col-span-3 bg-cover bg-fit bg-center rounded-lg hover:shadow-md cursor-pointer'
          src={images[index ?? 0]}></img>
       </div>}
       <button className='absolute top-0 bottom-0 left-0' onClick={onLeftClick}><i className="text-white text-[1.5rem] pl-1 fa-solid fa-arrow-left"></i></button>

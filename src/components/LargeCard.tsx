@@ -32,14 +32,19 @@ const LargeCard  = (props : Property) => {
 }
 
 const handleBookmark = async () => {
-    try {
-        const res = await saveProperty(_id)
-        ref()
-        console.log(res)
+    if (user) {
+        try {
+            const res = await saveProperty(_id)
+            ref()
+            console.log(res)
         } catch (error) {
             console.error('Failed to delete property:', error);
             
-        }
+        }   
+    } else {
+        alert('Please login to bookmark')
+    }
+    
     }
 
   return (
