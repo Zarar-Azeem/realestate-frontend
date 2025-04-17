@@ -4,16 +4,16 @@ import { setProperties } from '../slices/propertySlice'
 import { Property } from '../types/PropertyTypes'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:3001',
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
-        const token = (getState() as RootState ).auth.token 
+        const token = (getState() as RootState).auth.token;
         if (token) {
-            headers.set("authToken", `${token}`)
+            headers.set("authToken", `${token}`);
         }
-        return headers
+        return headers; // Always return headers, even if no token
     }
-})
+});
 
 
 export const baseApi = createApi({

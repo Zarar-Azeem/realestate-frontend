@@ -7,7 +7,6 @@ import { RootState } from '../store'
 
 const PropertiesList  = () => {
   const [results, setResults] = useState<Property[] | undefined>([])
-  const [count, setCount] = useState(0)
   const url = window.location.href
 
   const data = useSelector((state : RootState) => state.property.properties)
@@ -15,8 +14,7 @@ const PropertiesList  = () => {
   useEffect(() =>{
     console.log(url)
     setResults(data)
-    setCount(prev => prev +1)
-    console.log(count)
+    console.log(data)
   },[data])
 
   return (

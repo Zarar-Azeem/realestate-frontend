@@ -19,9 +19,9 @@ const Login = () => {
         const email = formData.get("email") as string 
         const password = formData.get("password") as string
         try {
-
+            
+            console.log("I am here")
             const res = await login({email,password}).unwrap()
-
             if(res.success){
                 dispatch(setUser(res.user))
                 navigate('/profile')
